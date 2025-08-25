@@ -1,6 +1,6 @@
 import axios, { Axios } from 'axios';
 import { omit } from 'lodash';
-import { cities, city, enlishNameByCity } from '../utils/cities-source/cities';
+import { cities, city, englishNameByCity } from '../utils/cities-source/cities';
 import { config } from '../shared/config';
 import { IStreet } from '../interfaces/IStreet';
 
@@ -49,7 +49,7 @@ export class StreetsService {
 			throw new Error('No street found for id: ' + id)
 		}
 		const dbStreet: ApiStreet = results[0]
-		const cityName = enlishNameByCity[dbStreet.city_name]
+		const cityName = englishNameByCity[dbStreet.city_name]
 
 		return this.convertApiStreetToIStreet(dbStreet)
 	}

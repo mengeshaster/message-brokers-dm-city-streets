@@ -25,7 +25,6 @@ import { cities, city } from '../utils/cities-source/cities';
     })
     .help().argv as any;
 
-  // Handle list cities option
   if (argv.listCities) {
     log.info('Available cities:');
     Object.keys(cities).forEach(city => {
@@ -36,7 +35,6 @@ import { cities, city } from '../utils/cities-source/cities';
 
   const cityName = argv.city as city;
 
-  // Validate city exists
   if (!cities[cityName]) {
     log.error(`City "${cityName}" not found. Use --list-cities to see available options.`);
     process.exit(1);
@@ -48,11 +46,9 @@ import { cities, city } from '../utils/cities-source/cities';
   await assertTopology(ch);
 
   try {
-    // Query StreetsService for all streets of the specified city
     const result = await StreetsService.getStreetsInCity(cityName);
     log.info(`Fetched ${result.streets.length} streets for ${cityName}`);
 
-    // Optional batching for performance
     const BATCH_SIZE = 500;
     let publishedCount = 0;
 
@@ -83,12 +79,11 @@ import { cities, city } from '../utils/cities-source/cities';
         publishedCount++;
       }
 
-      // Wait for confirmations and add small delay between batches
       await ch.waitForConfirms?.().catch(() => {
         log.error('Message confirmation failed');
       });
 
-      await new Promise(resolve => setTimeout(resolve, 10)); // Small delay
+      await new Promise(resolve => setTimeout(resolve, 10));
 
       log.info(`Published ${Math.min(i + BATCH_SIZE, result.streets.length)}/${result.streets.length} streets`);
     }
