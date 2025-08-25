@@ -1,0 +1,30 @@
+{
+  "name": "message-brokers-dm-city-streets",
+  "version": "1.0.0",
+  "main": "dist/publisher/main.js",
+  "types": "dist/publisher/main.d.ts",
+  "scripts": {
+    "dev:publisher": "nodemon --watch src --ext ts --exec ts-node src/publisher/main.ts",
+    "dev:consumer": "nodemon --watch src --ext ts --exec ts-node src/consumer/worker.ts",
+    "build": "tsc",
+    "publisher": "node dist/publisher/main.js",
+    "consumer": "node dist/consumer/worker.js"
+  },
+  "dependencies": {
+    "amqplib": "^0.10.3",
+    "axios": "^1.11.0",
+    "dotenv": "^16.0.3",
+    "lodash": "^4.17.21",
+    "mongoose": "^8.0.0",
+    "nodemon": "^3.1.10",
+    "yargs": "^17.7.2"
+  },
+  "devDependencies": {
+    "@types/amqplib": "^0.10.1",
+    "@types/lodash": "^4.17.20",
+    "@types/node": "^20.0.0",
+    "@types/yargs": "^17.0.24",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.0.0"
+  }
+}
